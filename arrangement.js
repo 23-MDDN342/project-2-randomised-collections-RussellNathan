@@ -10,7 +10,12 @@ let lastSwapTime = 0;
 const millisPerSwap = 3000;
 
 // global variables for colors
-const bg_color1 = [71, 222, 219];
+const bg_color1 = '#6a7';
+
+function preload () {
+  partsStrings = loadStrings('facefeatures');
+}
+
 function setup () {
   // create the drawing canvas, save the canvas element
   let main_canvas = createCanvas(canvasWidth, canvasHeight);
@@ -45,6 +50,14 @@ function draw () {
   background(bg_color1);
   noStroke();
 
+  // count body parts
+  let cbodyL  =   ( split(partsStrings[1],',') ).length;
+  let cxtra   =   ( split(partsStrings[2],',') ).length;
+  let ceyeL   =   ( split(partsStrings[3],',') ).length;
+  let cmouth  =   ( split(partsStrings[4],',') ).length;
+  let ceyeR   =   ( split(partsStrings[5],',') ).length;
+  // let cbodyR  =   ( split(partsStrings[6],',') ).length;
+
   // draw a 7x4 grid of faces
   let w = canvasWidth / 7;
   let h = canvasHeight / 4;
@@ -53,24 +66,33 @@ function draw () {
       let y = h/2 + h*i;
       let x = w/2 + w*j;
      
-        // center face
-        let eye_value = int(random(2,4));
-        let tilt_value = random(-45, 45);
-        let mouth_value = random(3,4);
-        let is_cyclops = random(0, 100);
+      // center face
+      let bodyL   = int(random(0, cbodyL));
+      let xtra    = int(random(0, cxtra));
+      let eyeL    = int(random(0, ceyeL));
+      let mouth   = int(random(0, cmouth));
+      let eyeR    = int(random(0, ceyeR));
+      // let bodyL = int(random(0, cbodyL));
 
-        if(is_cyclops < 10) {
-          eye_value = 1;
-          tilt_value = random(-5, 5);
-          mouth_value = random(0, 1.7);
-        }
+      let eye_mirror = random(0, 100);
+      if(eye_mirror<80) {
+        eyeR = eyeL;
+      }
 
-        push();
-        translate(x, y);
-        scale(w/25, h/25);
+      // let is_cyclops = random(0, 100);
+
+      // if(is_cyclops < 10) {
+      //   eye_value = 1;
+      //   tilt_value = random(-5, 5);
+      //   mouth_value = random(0, 1.7);
+      // }
+
+      push();
+      translate(x, y);
+      scale(w/25, h/25);
         
-        kaomoji(tilt_value, eye_value, mouth_value);
-        pop();
+      kaomoji(bodyL, xtra, eyeL, mouth, eyeR);
+      pop();
       
     }
   }

@@ -13,14 +13,36 @@
  * eye_value is an integer number of eyes: either 0, 1, 2, or 3
  * mouth_value is how open the mouth is and should generally range from 0.5 to 10
  */
-let faceStrings = '*'+'('+'^'+'.'+'^'+')'+'*';
 
-function kaomoji(tilt_value, eye_value, mouth_value) {
+let KbodyL;
+let partsBodyL;
+
+
+function preload () {
+  // let partsStrings = loadStrings('facefeatures');
+}
+
+function kaomoji(sbL, sx, siL, sm, siR) {
+  partsBodyL  =   split(partsStrings[1],',');
+  partsXtra   =   split(partsStrings[2],',');
+  partsEyeL   =   split(partsStrings[3],',');
+  partsMouth  =   split(partsStrings[4],',');
+  partsEyeR   =   split(partsStrings[5],',');
+  partsBodyR  =   split(partsStrings[6],',');
+
+  KbodyL  =   partsBodyL[sbL];
+  Kxtra   =   partsXtra[sx];
+  KeyeL   =   partsEyeL[siL];
+  Kmouth  =   partsMouth[sm];
+  KeyeR   =   partsEyeR[siR];
+  KbodyR  =   partsBodyR[sbL];
+  Kfull = (KbodyL + Kxtra + KeyeL + Kmouth + KeyeR + KbodyR) ;
+
   fill('BLACK');
   textAlign(CENTER,CENTER);
   // textSize(50);
 
-  text(faceStrings, 0, 0);
+  text(Kfull, 0, 0);
 }
 
 function orangeAlienFace(tilt_value, eye_value, mouth_value) {
