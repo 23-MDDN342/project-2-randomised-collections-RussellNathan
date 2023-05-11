@@ -22,7 +22,7 @@ function preload () {
   // let partsStrings = loadStrings('facefeatures');
 }
 
-function kaomoji(sbL, sx, siL, sm, siR) {
+function kaomoji(sbL, sx, siL, sm, siR, text_draw, Kfull) {
   partsBodyL  =   split(partsStrings[1],',');
   partsXtra   =   split(partsStrings[2],',');
   partsEyeL   =   split(partsStrings[3],',');
@@ -42,7 +42,11 @@ function kaomoji(sbL, sx, siL, sm, siR) {
   textAlign(CENTER,CENTER);
   // textSize(50);
 
-  text(Kfull, 0, 0);
+  if(text_draw){
+    text(Kfull, 0, 0);
+  }
+
+  return(Kfull);
 }
 
 function orangeAlienFace(tilt_value, eye_value, mouth_value) {

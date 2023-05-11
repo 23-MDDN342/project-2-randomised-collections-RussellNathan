@@ -3,12 +3,9 @@
  */
 
 
-// const faceStrings = loadJSON('facefeatures.json');
-// let faceStrings = loadStrings('eyes.txt');
-// print();
 const canvasWidth = 960;
 const canvasHeight = 500;
-const bg_color = [71, 222, 219];
+const bg = '#6a7';
 let slider1, slider2, slider3, slider4, slider5;
 let slider6, slider7, slider8, slider9, slider10;
 let faceSelector;
@@ -26,7 +23,7 @@ function setup () {
 
   // count body parts
   let cbodyL  =   ( split(partsStrings[1],',') ).length;
-  let cxtra  =   ( split(partsStrings[2],',') ).length;
+  let cxtra   =   ( split(partsStrings[2],',') ).length;
   let ceyeL   =   ( split(partsStrings[3],',') ).length;
   let cmouth  =   ( split(partsStrings[4],',') ).length;
   let ceyeR   =   ( split(partsStrings[5],',') ).length;
@@ -34,33 +31,25 @@ function setup () {
 
   // create sliders
   slider1 = createSlider(0, cbodyL-1,   0);
-  slider2 = createSlider(0, cxtra-1,    0);
+  slider2 = createSlider(1, cxtra-1,    0);
   slider3 = createSlider(0, ceyeL-1,    0);
   slider4 = createSlider(0, cmouth-1,   0);
   slider5 = createSlider(0, ceyeR-1,    0);
-  slider6 = createSlider(0, cbodyR-1,   0);
-  slider7 = createSlider(0, 100, 50);
-  slider8 = createSlider(0, 100, 50);
-  slider9 = createSlider(0, 100, 50);
-  slider10 = createSlider(0, 100, 50);
 
   check1 = createCheckbox('', true);
+  check2 = createCheckbox('', false);
   faceGuideCheckbox = createCheckbox('', false);
 
   slider1.parent('slider1Container');
+  check1.parent('checkbox1Container');
   slider2.parent('slider2Container');
   slider3.parent('slider3Container');
   slider4.parent('slider4Container');
-  check1.parent('slider5Container');
+  check2.parent('checkbox2Container');
   slider5.parent('slider5Container');
-  slider6.parent('slider6Container');
-  slider7.parent('slider7Container');
-  slider8.parent('slider8Container');
-  slider9.parent('slider9Container');
-  slider10.parent('slider10Container');
 
   
-  faceGuideCheckbox.parent('checkbox1Container');
+  faceGuideCheckbox.parent('checkbox3Container');
 
   faceSelector = createSelect();
   faceSelector.option('1');
@@ -77,23 +66,23 @@ function draw () {
 
   let mode = faceSelector.value();
 
-  background(bg_color);
+  background(bg);
 
   let s1 = slider1.value();
-  let s2 = slider2.value();
+  let s2;
+  if (check1.checked()){
+    s2 = slider2.value();
+  } else{
+    s2 = 0;
+  }
   let s3 = slider3.value();
   let s4 = slider4.value();
   let s5;
-  if (check1.checked()){
-    s5 = slider3.value();
-  } else {
+  if (check2.checked()){
     s5 = slider5.value();
+  } else {
+    s5 = slider3.value();
   }
-  let s6 = slider6.value();
-  let s7 = slider7.value();
-  let s8 = slider8.value();
-  let s9 = slider9.value();
-  let s10 = slider10.value();
 
   let show_face_guide = faceGuideCheckbox.checked();
 
@@ -112,7 +101,7 @@ function draw () {
    // draw face using values mapped from 3 sliders
 
 
-   kaomoji(s1,s2,s3,s4,s5,s6,s7,s8);
+   kaomoji(s1,s2,s3,s4,s5,true);
   }
 
   if (mode == '2') {

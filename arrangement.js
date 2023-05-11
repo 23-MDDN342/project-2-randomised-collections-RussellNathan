@@ -10,7 +10,7 @@ let lastSwapTime = 0;
 const millisPerSwap = 3000;
 
 // global variables for colors
-const bg_color1 = '#6a7';
+const bg = '#6a7';
 
 function preload () {
   partsStrings = loadStrings('facefeatures');
@@ -47,7 +47,7 @@ function draw () {
   randomSeed(curRandomSeed);
 
   // clear screen
-  background(bg_color1);
+  background(bg);
   noStroke();
 
   // count body parts
@@ -59,6 +59,7 @@ function draw () {
   // let cbodyR  =   ( split(partsStrings[6],',') ).length;
 
   // draw a 7x4 grid of faces
+  let kreturn = '';
   let w = canvasWidth / 7;
   let h = canvasHeight / 4;
   for(let i=0; i<4; i++) {
@@ -88,14 +89,19 @@ function draw () {
       // }
 
       push();
-      translate(x, y);
+      translate(50, 50);
       scale(w/25, h/25);
-        
-      kaomoji(bodyL, xtra, eyeL, mouth, eyeR);
+      kreturn = kreturn+' '+kaomoji(bodyL, xtra, eyeL, mouth, eyeR, false);
+
       pop();
       
     }
   }
+  fill(20);
+  textAlign(CENTER, CENTER);
+  textSize(80);
+  textWrap('WORD');
+  text(kreturn, 0, 50, canvasWidth);
 }
 
 function keyTyped() {
