@@ -69,7 +69,7 @@ function draw () {
         translate(x, y);
         scale(w/25, h/25);
         
-        orangeAlienFace(tilt_value, eye_value, mouth_value);
+        kaomoji(tilt_value, eye_value, mouth_value);
         pop();
       
     }
