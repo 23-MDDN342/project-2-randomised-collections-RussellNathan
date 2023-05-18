@@ -1,81 +1,46 @@
 /*
- * This file should contain code that draws your faces.
+ * The code in this file contains two functions.
  *
- * Each function takes parameters and draws a face that is within
- * the bounding box (-10, -10) to (10, 10).
- *
- * These functions are used by your final arrangement of faces as well as the face editor.
+ * One draws the face entirely out of text and returns it as a string
+ * The other does picks random symbols to be placed on the final arrangement to
+ * create an eclectic atmosphere.
  */
 
-
-/*
- * tilt_value is in degrees
- * eye_value is an integer number of eyes: either 0, 1, 2, or 3
- * mouth_value is how open the mouth is and should generally range from 0.5 to 10
+// Create a face entirely out of text 
+/* =Variables=
+ * Ib       :   the index for the body part
+ * Ix       :   the index for the body part
+ * IiL      :   the index for the body part
+ * Im       :   the index for the body part
+ * IiR      :   the index for the body part
+ * KbodyL   :   the string for the left body part
+ * K...etc  :   the string for the corresponding part
+ * Kfull    :   the full combined string
  */
-function orangeAlienFace(tilt_value, eye_value, mouth_value) {
-  const bg_color3 = [71, 222, 219];
-  const fg_color3 = [255, 93, 35];
+function kaomoji(Ib, Ix, IiL, Im, IiR, Kfull) {
+  // generate arrays containing every character for each face part
+  let partsBodyL  =   split(partsStrings[1],',');
+  let partsXtra   =   split(partsStrings[2],',');
+  let partsEye   =   split(partsStrings[3],',');
+  let partsMouth  =   split(partsStrings[4],',');
+  let partsBodyR  =   split(partsStrings[5],',');
 
-  let headSize = 20
-  let eyeSize = 5;
-  let centerX = 0;
-  let Iy = -4
-  let distactBetweenEyes = 5
-  let MouthDrop = 7
-  
-  // rotation in degrees
-  angleMode(DEGREES);
-  rotate(tilt_value);
+  // write the corresponding string for that part as a string
+  let KbodyL  =   partsBodyL[Ib];
+  let Kxtra   =   partsXtra[Ix];
+  let KeyeL   =   partsEye[IiL];
+  let Kmouth  =   partsMouth[Im];
+  let KeyeR   =   partsEye[IiR];
+  let KbodyR  =   partsBodyR[Ib];
+  // create the full string containing each requested part
+  Kfull = (KbodyL + Kxtra + KeyeL + Kmouth + KeyeR + KbodyR) ;
 
- // head
-  noStroke();
-  fill(fg_color3);
-  ellipse(centerX, 0, headSize, headSize);
-
-  // 2 traditonal eyes
-  if (eye_value === 1 || eye_value == 3) {
-    fill(bg_color3);
-    ellipse(centerX, Iy, eyeSize-1,eyeSize);
-   
-  }
-// middle eye
-  if (eye_value >= 2) {
-    fill(bg_color3);
-    ellipse(centerX - distactBetweenEyes, Iy, eyeSize);
-    ellipse(centerX + distactBetweenEyes, Iy, eyeSize );
-  }
-
-  // mouth
-  fill(bg_color3);
-  ellipse(centerX, Iy + MouthDrop, distactBetweenEyes, mouth_value);
+  // return the full string to the function that requested it
+  return(Kfull);
 }
 
-
-function simplePurpleFace() {
-  fill(234, 122, 244);
-  noStroke();
-  // head
-  ellipse(0, 0, 20);
-  // eyes
-  fill(255, 217, 114);
-  ellipse(-3, -3, 3);
-  ellipse( 3, -3, 3);
-}
-
-/*
- * thinness_value ranges from 0-100 and indicates how thin the face is
- */
-function blockyFace(thinness_value) {
-  // head
-  noStroke();
-  fill(134, 19, 136);
-  let head_width = map(thinness_value, 0, 100, 8, 20);
-  rect(-head_width/2, -9, head_width, 18);
- 
-
-  // eyes
-  fill(234, 122, 244);
-  ellipse(-2, -4, 1);
-  ellipse( 2, -4, 1);
+// Write a string containing a symbol from the face features document
+function symbols(deco) {
+  partsDeco =   split(partsStrings[6],',');
+  return(partsDeco[deco]);
 }
